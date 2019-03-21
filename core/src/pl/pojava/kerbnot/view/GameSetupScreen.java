@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -21,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 
 import pl.pojava.kerbnot.KerbNot;
 import pl.pojava.kerbnot.Preferences;
+import pl.pojava.kerbnot.loaders.AssetLoader;
 import pl.pojava.kerbnot.objects.Ship;
 
 public class GameSetupScreen implements Screen {
@@ -30,8 +30,6 @@ public class GameSetupScreen implements Screen {
 	private BitmapFont font;
 	private Stage stage;
 	private MainMenuScreen mainMenuScreen;
-	private Texture backgroundTexture;
-	private Sprite backgroundSprite;
 	private GameSetupScreen thisScreen;
 	public Ship ship;
 	
@@ -51,25 +49,18 @@ public class GameSetupScreen implements Screen {
 		//Creating and centering table
 		Table table = new Table();
 		table.setFillParent(true);
-				
-		//Background
-		backgroundTexture = new Texture(Gdx.files.internal("background/menuBackground.jpg"));
-		backgroundSprite = new Sprite(backgroundTexture);
-				
-		//Skin setup
-		Skin skin = new Skin(Gdx.files.internal("skin/tracer-ui.json"));
 		
 		//Textfields TODO: More settings
-		final TextField fuel = new TextField("50", skin);
+		final TextField fuel = new TextField("50", AssetLoader.SKIN);
 		
 		//Buttons
-		TextButton start = new TextButton("Start", skin);
-		TextButton back = new TextButton("Back", skin);
+		TextButton start = new TextButton("Start", AssetLoader.SKIN);
+		TextButton back = new TextButton("Back", AssetLoader.SKIN);
 		
 		table.center();
-		table.add(new Label("Game setup", skin));
+		table.add(new Label("Game setup", AssetLoader.SKIN));
 		table.row().padTop(20);
-		table.add(new Label("Fuel", skin)).uniform().fill();
+		table.add(new Label("Fuel", AssetLoader.SKIN)).uniform().fill();
 		table.row();
 		table.add(fuel).uniform().fill();
 		table.row().padTop(20);
@@ -105,7 +96,7 @@ public class GameSetupScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		stage.act(delta);
 		batch.begin();
-		backgroundSprite.draw(batch);
+		AssetLoader.BACKGROUND_SPRITE.draw(batch);
 		batch.end();
 		stage.draw();
 

@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -23,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import pl.pojava.kerbnot.KerbNot;
 import pl.pojava.kerbnot.Preferences;
+import pl.pojava.kerbnot.loaders.AssetLoader;
 
 public class OptionsScreen implements Screen {
 	
@@ -31,8 +31,6 @@ public class OptionsScreen implements Screen {
 	private BitmapFont font;
 	private Stage stage;
 	private MainMenuScreen mainMenuScreen;
-	private Texture backgroundTexture;
-	private Sprite backgroundSprite;
 
 	public OptionsScreen(MainMenuScreen mainMenuScreen, KerbNot game, SpriteBatch batch, BitmapFont font) {
 		this.game = game;
@@ -50,28 +48,21 @@ public class OptionsScreen implements Screen {
 		Table table = new Table();
 		table.setFillParent(true);
 		
-		//Background
-		backgroundTexture = new Texture(Gdx.files.internal("background/menuBackground.jpg"));
-		backgroundSprite = new Sprite(backgroundTexture);
-		
-		//Skin setup
-		Skin skin = new Skin(Gdx.files.internal("skin/tracer-ui.json"));
-		
 		//Volume slider
-		final Slider volumeSlider = new Slider(0, 100, 10, false, skin);
+		final Slider volumeSlider = new Slider(0, 100, 10, false, AssetLoader.SKIN);
 		volumeSlider.setValue(Preferences.volume);
 		
 		//Music checkbox
-		CheckBox musicCheck = new CheckBox("Music", skin);
+		CheckBox musicCheck = new CheckBox("Music", AssetLoader.SKIN);
 		musicCheck.setChecked(Preferences.music);
 		
 		//Buttons
-		TextButton back = new TextButton("Back", skin);
+		TextButton back = new TextButton("Back", AssetLoader.SKIN);
 		
 		table.center();
-		table.add(new Label("Options", skin));
+		table.add(new Label("Options", AssetLoader.SKIN));
 		table.row().padTop(20);
-		table.add(new Label("Volume", skin)).uniform().fill();
+		table.add(new Label("Volume", AssetLoader.SKIN)).uniform().fill();
 		table.row();
 		table.add(volumeSlider).uniform().fill();
 		table.row().padTop(20);
@@ -114,7 +105,7 @@ public class OptionsScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		stage.act(delta);
 		batch.begin();
-		backgroundSprite.draw(batch);
+		AssetLoader.BACKGROUND_SPRITE.draw(batch);
 		batch.end();
 		stage.draw();
 

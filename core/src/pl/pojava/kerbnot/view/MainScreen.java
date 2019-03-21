@@ -12,12 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import pl.pojava.kerbnot.KerbNot;
+import pl.pojava.kerbnot.loaders.AssetLoader;
 import pl.pojava.kerbnot.objects.Ship;
 
 public class MainScreen implements Screen {
@@ -53,26 +53,23 @@ public class MainScreen implements Screen {
 		Table timeContainer = new Table();
 		timeContainer.setFillParent(true);
 		
-		//Skin setup
-		Skin skin = new Skin(Gdx.files.internal("skin/tracer-ui.json"));
-		
 		//Buttons
-		TextButton menu = new TextButton("Menu", skin);
+		TextButton menu = new TextButton("Menu", AssetLoader.SKIN);
 		
 		//Table setup
 		buttons.top().right().padTop(20).padRight(20);
 		buttons.add(menu).uniform().fill();
 		
 		//Labels
-		timeLabel = new Label(String.valueOf(time), skin);
+		timeLabel = new Label(String.valueOf(time), AssetLoader.SKIN);
 		
 		stats.bottom().left().padBottom(100).padLeft(20);
-		stats.add(new Label("Fuel", skin)).fill().uniform();
+		stats.add(new Label("Fuel", AssetLoader.SKIN)).fill().uniform();
 		stats.row();
-		stats.add(new Label("0", skin)); // TODO display current fuel
+		stats.add(new Label("0", AssetLoader.SKIN)); // TODO display current fuel
 		
 		timeContainer.top().left().padTop(20).padLeft(20);
-		timeContainer.add(new Label("Time", skin)).fill().uniform();
+		timeContainer.add(new Label("Time", AssetLoader.SKIN)).fill().uniform();
 		timeContainer.row();
 		timeContainer.add(timeLabel).fill().uniform();
 		

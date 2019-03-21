@@ -10,12 +10,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import pl.pojava.kerbnot.KerbNot;
+import pl.pojava.kerbnot.loaders.AssetLoader;
 
 public class CreditsScreen implements Screen {
 	
@@ -24,8 +24,6 @@ public class CreditsScreen implements Screen {
 	private BitmapFont font;
 	private Stage stage;
 	private MainMenuScreen mainMenuScreen;
-	private Texture backgroundTexture;
-	private Sprite backgroundSprite;
 
 	public CreditsScreen(MainMenuScreen mainMenuScreen,KerbNot game, SpriteBatch batch, BitmapFont font) {
 		this.game = game;
@@ -43,26 +41,19 @@ public class CreditsScreen implements Screen {
 		Table table = new Table();
 		table.setFillParent(true);
 		
-		//Background
-		backgroundTexture = new Texture(Gdx.files.internal("background/menuBackground.jpg"));
-		backgroundSprite = new Sprite(backgroundTexture);
-		
-		//Skin setup
-		Skin skin = new Skin(Gdx.files.internal("skin/tracer-ui.json"));
-		
 		//Authors
 		String author1 = "Filip Jakubczak";
 		String author2 = "Malgorzata Korona";
 		
 		//Buttons
-		TextButton back = new TextButton("Back", skin);
+		TextButton back = new TextButton("Back", AssetLoader.SKIN);
 		
 		table.center();
-		table.add(new Label("Authors", skin));
+		table.add(new Label("Authors", AssetLoader.SKIN));
 		table.row().padTop(20);
-		table.add(new Label(author1, skin)).uniform().fill();
+		table.add(new Label(author1, AssetLoader.SKIN)).uniform().fill();
 		table.row();
-		table.add(new Label(author2, skin)).uniform().fill();
+		table.add(new Label(author2, AssetLoader.SKIN)).uniform().fill();
 		table.row().padTop(20);
 		table.add(back);
 		
@@ -82,7 +73,7 @@ public class CreditsScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		stage.act(delta);
 		batch.begin();
-		backgroundSprite.draw(batch);
+		AssetLoader.BACKGROUND_SPRITE.draw(batch);
 		batch.end();
 		stage.draw();
 

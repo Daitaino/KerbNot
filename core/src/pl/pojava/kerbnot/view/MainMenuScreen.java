@@ -13,12 +13,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import pl.pojava.kerbnot.KerbNot;
+import pl.pojava.kerbnot.loaders.AssetLoader;
 
 //A standard main menu screen
 
@@ -28,8 +28,6 @@ public class MainMenuScreen implements Screen {
 	private KerbNot game;
 	private SpriteBatch batch;
 	private BitmapFont font;
-	private Texture backgroundTexture;
-	private Sprite backgroundSprite;
 	private OrthographicCamera camera;
 	private Vector3 camTarget;
 	private Vector3 rocketPos;
@@ -57,17 +55,11 @@ public class MainMenuScreen implements Screen {
 		//Create and center table
 		Table table = new Table();
 		table.setFillParent(true);
-		
-		Skin skin = new Skin(Gdx.files.internal("skin/tracer-ui.json"));
-		
-		backgroundTexture = new Texture(Gdx.files.internal("background/menuBackground.jpg"));
-		backgroundSprite = new Sprite(backgroundTexture);
-		
-		
-		TextButton newGame = new TextButton("New Game", skin);
-		TextButton options = new TextButton("Options", skin);
-		TextButton credits = new TextButton("Credits", skin);
-		TextButton exit = new TextButton("Exit", skin);
+					
+		TextButton newGame = new TextButton("New Game", AssetLoader.SKIN);
+		TextButton options = new TextButton("Options", AssetLoader.SKIN);
+		TextButton credits = new TextButton("Credits", AssetLoader.SKIN);
+		TextButton exit = new TextButton("Exit", AssetLoader.SKIN);
 		
 		//Align buttons
 		table.right().padRight(75);
@@ -124,7 +116,7 @@ public class MainMenuScreen implements Screen {
 		
 		stage.act(delta);
 		batch.begin();
-		backgroundSprite.draw(batch);
+		AssetLoader.BACKGROUND_SPRITE.draw(batch);
 		batch.end();
 		stage.draw();
 
