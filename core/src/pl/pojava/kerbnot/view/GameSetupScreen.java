@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 
 import pl.pojava.kerbnot.KerbNot;
-import pl.pojava.kerbnot.Preferences;
 import pl.pojava.kerbnot.loaders.AssetLoader;
 import pl.pojava.kerbnot.objects.Ship;
 
