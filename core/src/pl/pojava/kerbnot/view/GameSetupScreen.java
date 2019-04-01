@@ -74,7 +74,6 @@ public class GameSetupScreen implements Screen {
 		start.addListener(new ChangeListener( ) {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				//ship.setFuel(Float.parseFloat(fuel.getText())); TODO NullPointerException :(
 				game.setScreen(new MainScreen(ship, mainMenuScreen, game, batch, font));
 			}
 		});
