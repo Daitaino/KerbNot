@@ -1,4 +1,4 @@
-package pl.pojava.kerbnot.objects;
+package pl.pojava.kerbnot.model;
 
 
 /**

@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import pl.pojava.kerbnot.KerbNot;
 import pl.pojava.kerbnot.loaders.AssetLoader;
-import pl.pojava.kerbnot.objects.Ship;
+import pl.pojava.kerbnot.model.Ship;
 
 public class MainScreen implements Screen {
 

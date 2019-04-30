@@ -1,4 +1,4 @@
-package pl.pojava.kerbnot.objects;
+package pl.pojava.kerbnot.model;
 
 import com.badlogic.gdx.physics.box2d.Body;
 
