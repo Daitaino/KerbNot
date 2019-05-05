@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import pl.pojava.kerbnot.model.LevelManager;
 import pl.pojava.kerbnot.KerbNot;
 import pl.pojava.kerbnot.loaders.AssetLoader;
 
@@ -77,7 +78,10 @@ public class MainMenuScreen implements Screen {
 		newGame.addListener(new ClickListener( ) {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.setScreen(new GameSetupScreen(thisScreen, game, batch, font));
+				game.setScreen(new GameScreen(game, LevelManager.createLevel(), batch, font));
+				//game.setScreen(new CutsceneScreen(game, batch, font, AssetManager.LEVEL1START, LevelManager.createLevel(),
+                //        "A meteor hit you during your daily routine!"));
+				//game.setScreen(new GameSetupScreen(thisScreen, game, batch, font));
 			}
 		});
 		

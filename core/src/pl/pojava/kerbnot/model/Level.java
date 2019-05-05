@@ -11,7 +11,11 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
+
 import pl.pojava.kerbnot.util.Constants;
+import pl.pojava.kerbnot.view.GameScreen;
+
+import static pl.pojava.kerbnot.util.Constants.*;
 
 /**
  * 
@@ -168,7 +172,7 @@ public class Level {
 	}
 	
 	private void updateVisualObjects(float deltaTime) {
-		for(GameObjects go : solidObjects) {
+		for(GameObject go : solidObjects) {
 			go.update(deltaTime);
 		}
 	}
@@ -189,6 +193,12 @@ public class Level {
 		if(!Constants.DEBUG) 
 			setState(State.HEALTH_LOST);
 	}
+	
+	private void obstacleCollision(Contact contact) {
+        System.out.println("obstacle collision");
+        if (!DEBUG)
+            setState(State.HEALTH_LOST);
+    }
 	
 	public static void presetOrbit(SolidObject orbiter, SolidObject focus, float orbitRadius, float period, float timePassed, float phase) {
 		float fx = focus.getBody().getPosition().x;

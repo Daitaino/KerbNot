@@ -8,6 +8,8 @@ import pl.pojava.kerbnot.model.ForceDiagram;
 import pl.pojava.kerbnot.model.Level;
 import pl.pojava.kerbnot.model.Playable;
 import pl.pojava.kerbnot.model.TrajectorySimulator;
+import pl.pojava.kerbnot.view.GameScreen;
+import pl.pojava.kerbnot.view.WorldRenderer;
 
 public class WorldController {
 	
@@ -34,7 +36,7 @@ public class WorldController {
 			screen.zoomOut();
 		}
 		
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && level.getState() == Leve.State.RUNNING) {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && level.getState() == Level.State.RUNNING) {
 			screen.showPauseScreen();
 		}
 		if (controlState >= 2 && Gdx.input.isKeyPressed(Input.Keys.LEFT)) {

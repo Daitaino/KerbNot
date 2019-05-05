@@ -233,7 +233,7 @@ public class Playable extends SolidObject {
 		SASEnabled = set;
 	}
 	
-	public float fetStartingFuel() {
+	public float getStartingFuel() {
 		return startingFuel;
 	}
 	;

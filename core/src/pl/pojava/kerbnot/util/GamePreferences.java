@@ -52,6 +52,14 @@ public class GamePreferences {
 		this.fullscreen = fullscreen;
 	}
 	
+	public boolean isMusicEnabled() {
+		return music;
+	}
+	
+	public void setMusic (boolean music) {
+		this.music = music;
+	}
+	
 	public static GamePreferences getInstance() {
 		return instance;
 	}

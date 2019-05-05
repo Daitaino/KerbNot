@@ -21,7 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import pl.pojava.kerbnot.KerbNot;
-import pl.pojava.kerbnot.Preferences;
+import pl.pojava.kerbnot.util.GamePreferences;
 import pl.pojava.kerbnot.loaders.AssetLoader;
 
 public class OptionsScreen implements Screen {
@@ -50,11 +50,11 @@ public class OptionsScreen implements Screen {
 		
 		//Volume slider
 		final Slider volumeSlider = new Slider(0, 100, 10, false, AssetLoader.SKIN);
-		volumeSlider.setValue(Preferences.volume);
+		volumeSlider.setValue(GamePreferences.getInstance().getMasterVolume());
 		
 		//Music checkbox
 		CheckBox musicCheck = new CheckBox("Music", AssetLoader.SKIN);
-		musicCheck.setChecked(Preferences.music);
+		musicCheck.setChecked(GamePreferences.getInstance().isMusicEnabled());
 		
 		//Buttons
 		TextButton back = new TextButton("Back", AssetLoader.SKIN);
@@ -76,7 +76,7 @@ public class OptionsScreen implements Screen {
 		back.addListener(new ChangeListener( ) {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				Preferences.volume = volumeSlider.getValue();
+				GamePreferences.getInstance().setMasterVolume(volumeSlider.getValue());
 			}
 		});
 		
@@ -84,7 +84,7 @@ public class OptionsScreen implements Screen {
 		musicCheck.addListener(new ChangeListener( ) {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				Preferences.music = !Preferences.music;
+				GamePreferences.getInstance().setMusic(!GamePreferences.getInstance().isMusicEnabled());
 			}
 		});
 		
