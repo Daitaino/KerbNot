@@ -31,7 +31,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.badlogic.gdx.video.VideoPlayer;
+
 
 import pl.pojava.kerbnot.KerbNot;
 import pl.pojava.kerbnot.controller.WorldController;
@@ -44,7 +44,6 @@ import static pl.pojava.kerbnot.util.Constants.*;
 public class GameScreen implements Screen {
 	
 	private SpriteBatch batch;
-	private VideoPlayer player;
 	private BitmapFont font;
 	private OrthographicCamera camera;
 	private Viewport viewport;
@@ -65,7 +64,6 @@ public class GameScreen implements Screen {
 	private Animation waypointAnimation;
 	private TextureAtlas waypointAtlas;
 	private Texture sasTexture;
-	private FileHandle endVideo;
 	private String endLevelText;
 	
 	public GameScreen(KerbNot game, Level level, SpriteBatch batch, BitmapFont font) {
@@ -81,8 +79,6 @@ public class GameScreen implements Screen {
 		// TODO Auto-generated method stub
 		debugRenderer.dispose();
 		renderer.dispose();
-		if (player != null)
-			player.dispose();
 		font.dispose();
 		particleEffect.dispose();
 		timerFont.dispose();
@@ -90,7 +86,6 @@ public class GameScreen implements Screen {
 		shapeRenderer.dispose();
 		skin.dispose();
 		stage.dispose();
-		
 	}
 
 	@Override
@@ -156,7 +151,6 @@ public class GameScreen implements Screen {
 			drawDebugString("Thrust: " + cameraTarget.getCurrentThrust(), 22);
 			drawDebugString("X: " + String.format("%.2f", cameraTarget.getBody().getPosition().x), 23);
 			drawDebugString("Y: " + String.format("%.2f", cameraTarget.getBody().getPosition().y), 24);
-			/////???????????
 			drawDebugString("Linear velocity: " + cameraTarget.getBody().getLinearVelocity().len() * 10, 25);
 			drawDebugString("Angular velocity: " + cameraTarget.getBody().getAngularVelocity(), 26);
 			drawDebugString("Gravitational force: " + level.getCurrentGravityForce(), 27);
@@ -222,16 +216,37 @@ public class GameScreen implements Screen {
 				0, 
 				fuelRate, 
 				20,
-				camera.zoom,
-				camera.zoom,
-				0, 
+				camera.zoom, //scaleX
+				camera.zoom, //scaleY
+				0, //rotation
 				0, 
 				0, 
 				overlayFiller.getWidth(),
 				overlayFiller.getHeight(),
-				false,
-				false
+				false,//whether to flip the sprite horizontally
+				false //whether to flip the sprite vertically
 		);
+		
+		float thrustRate;
+        thrustRate = (level.getPlayable().getCurrentThrust() * 69) / level.getPlayable().getMaxThrust(); //69 When bar is full
+        batch.draw(
+                overlayFiller,
+                camera.position.x - (camera.viewportWidth / 2f - 894) * camera.zoom, //462 Fuel bar's starting pointX
+                camera.position.y - (camera.viewportHeight / 2f - 635.9f) * camera.zoom, //635.9f Fuel bar's starting pointY
+                0,
+                0,
+                14,
+                thrustRate, //When bar is max
+                camera.zoom,
+                camera.zoom,
+                0,
+                0,
+                0,
+                overlayFiller.getWidth(),
+                overlayFiller.getHeight(),
+                false,
+                false
+        );
 		
 		String timeText = "" + (int) elapsedTime;
 		if((int) elapsedTime >= 60 ) {
@@ -297,7 +312,7 @@ public class GameScreen implements Screen {
 		}
 		
 		if (level.getWaypoint() != null) {
-			TextureRegion way = (TextureRegion) waypointAnimation.getKeyFrame(elapsedTime, true);
+			TextureRegion way = waypointAnimation.getKeyFrame(elapsedTime, true);
 			batch.draw(
 					way,
 					level.getWaypoint().getPosition().x * toPixel,
@@ -316,51 +331,73 @@ public class GameScreen implements Screen {
 			minimap.draw(batch);
 		}
 		
-		/*if (level.getState() == Level.State.FINISHED) {
-			boolean isGameOver = true;
-			endLevelText = "You made it back safely! That was close!";
-            batch.draw(
-                    AssetManager.LEVEL_FINISHED,
-                    camera.position.x - camera.viewportWidth / 2f * camera.zoom,
-                    camera.position.y - camera.viewportHeight / 2f * camera.zoom,
-                    AssetManager.LEVEL_FINISHED.getWidth() * camera.zoom,
-                    AssetManager.LEVEL_FINISHED.getHeight() * camera.zoom
-            );
-            
-        }*/
-		else if(level.getState() == Level.State.GAME_OVER) {
-			if (level.getHealth() != 0) {
-				boolean isGameOver = true;
-				endLevelText = "You made it back safely! That was close!";
-	            batch.draw(
-	                    AssetManager.LEVEL_FINISHED,
-	                    camera.position.x - camera.viewportWidth / 2f * camera.zoom,
-	                    camera.position.y - camera.viewportHeight / 2f * camera.zoom,
-	                    AssetManager.LEVEL_FINISHED.getWidth() * camera.zoom,
-	                    AssetManager.LEVEL_FINISHED.getHeight() * camera.zoom
-	            );
-				renderer.stopThrusterGoinger();
-				renderer.stopWarningSound();
-                renderer.stopBackgroundMusic();
-                popupView.stopPopupShutter();
-                game.setScreen(new MainMenuScreen(game, batch, font));
-			} else {
-				boolean isGameOver = true;
-				endLevelText = "You made it back safely! That was close!";
-	            batch.draw(
-	                    AssetManager.GAME_OVER,
-	                    camera.position.x - camera.viewportWidth / 2f * camera.zoom,
-	                    camera.position.y - camera.viewportHeight / 2f * camera.zoom,
-	                    AssetManager.GAME_OVER.getWidth() * camera.zoom,
-	                    AssetManager.GAME_OVER.getHeight() * camera.zoom
-	            );
-				renderer.stopBackgroundMusic();
-                renderer.stopThrusterGoinger();
-                renderer.stopWarningSound();
-                popupView.stopPopupShutter();
-                renderer.dispose();
-                game.setScreen(new MainMenuScreen(game, batch, font));
-			}
+		 if (level.getPlayable().getSASEnabled())
+	            sasTexture = AssetManager.SAS_ON;
+	        else
+	            sasTexture = AssetManager.SAS_OFF;
+
+	        batch.draw(
+	                sasTexture,
+	                camera.position.x - (camera.viewportWidth / 2f - 0) * camera.zoom,
+	                camera.position.y - (camera.viewportHeight / 2f - 400) * camera.zoom,
+	                0,
+	                0,
+	                sasTexture.getWidth(),
+	                sasTexture.getHeight(),
+	                camera.zoom,
+	                camera.zoom,
+	                0,
+	                0,
+	                0,
+	                sasTexture.getWidth(),
+	                sasTexture.getHeight(),
+	                false,
+	                false
+	        );
+
+
+	        popupView.draw(batch);
+		
+		
+		if(level.getState() == Level.State.FINISHED) {
+			
+			 Timer.schedule(new Timer.Task() {
+	                @Override
+	                public void run() {
+						if (level.getHealth() != 0) {
+							boolean isGameOver = true;
+							endLevelText = "You made it back safely! That was close!";
+				            batch.draw(
+				                    AssetManager.LEVEL_FINISHED,
+				                    camera.position.x - camera.viewportWidth / 2f * camera.zoom,
+				                    camera.position.y - camera.viewportHeight / 2f * camera.zoom,
+				                    AssetManager.LEVEL_FINISHED.getWidth() * camera.zoom,
+				                    AssetManager.LEVEL_FINISHED.getHeight() * camera.zoom
+				            );
+							renderer.stopThrusterGoinger();
+							renderer.stopWarningSound();
+			                renderer.stopBackgroundMusic();
+			                popupView.stopPopupShutter();
+			                game.setScreen(new MainMenuScreen(game, batch, font, level));
+						} else {
+							boolean isGameOver = true;
+							endLevelText = "You made it back safely! That was close!";
+				            batch.draw(
+				                    AssetManager.GAME_OVER,
+				                    camera.position.x - camera.viewportWidth / 2f * camera.zoom,
+				                    camera.position.y - camera.viewportHeight / 2f * camera.zoom,
+				                    AssetManager.GAME_OVER.getWidth() * camera.zoom,
+				                    AssetManager.GAME_OVER.getHeight() * camera.zoom
+				            );
+							renderer.stopBackgroundMusic();
+			                renderer.stopThrusterGoinger();
+			                renderer.stopWarningSound();
+			                popupView.stopPopupShutter();
+			                renderer.dispose();
+			                game.setScreen(new MainMenuScreen(game, batch, font, level));
+						}
+					}
+			 }, 5.0f);
 		}
 		
 		if (DEBUG) {
@@ -403,7 +440,7 @@ public class GameScreen implements Screen {
 	public void show() {
 		// TODO Auto-generated method stub
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); // 1. argument - whether y should be pointing down
 		
 		debugRenderer = new Box2DDebugRenderer();
 		
@@ -483,7 +520,7 @@ public class GameScreen implements Screen {
                         renderer.stopWarningSound();
                         popupView.stopPopupShutter();
                         renderer.dispose();
-                        game.setScreen(new MainMenuScreen(game, batch, font));
+                        game.setScreen(new MainMenuScreen(game, batch, font, level));
                         break;
                     default:
                     	break;

@@ -72,7 +72,7 @@ public class Minimap {
     		drawAt(batch, AssetManager.MINIMAP_PLANET, planetPos.x, planetPos.y, planetScale);
     	}
     	
-    	for (int i = 0; i < trajectorySimulator.getEstimationPath().size; i++) {
+    	for (int i = 0; i < trajectorySimulator.getEstimationPath().size; i += 10) {
     		Vector2 point = trajectorySimulator.getEstimationPath().get(i);
     		drawAt(batch, AssetManager.GHOST, point.x, point.y, GHOST_SCALE);
     	}
@@ -85,7 +85,7 @@ public class Minimap {
     	x = width * (x * toPixel / level.getMap().getWidth()) + origin.x;
     	y = height * (y * toPixel / level.getMap().getHeight()) + origin.y;
     	
-    	if (center.dst(x ,y) > radius) {
+    	if (center.dst(x ,y) > radius) { //distance between these and other vector
     		return;
     	}
     	
@@ -130,3 +130,4 @@ public class Minimap {
     }
     
 }
+

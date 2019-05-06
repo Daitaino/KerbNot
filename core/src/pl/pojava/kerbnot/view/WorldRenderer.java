@@ -56,6 +56,9 @@ public class WorldRenderer implements Disposable{
 	private boolean isBackMusicPlaying;
 	
 	public WorldRenderer (Level level, OrthographicCamera camera) {
+		this.level = level;
+		this.camera = camera;
+		
 		textureMeteor = new TextureAtlas(Gdx.files.internal("Backgrounds/meteorSheets/meteors.atlas"));
 		animationMeteor = new Animation(1f/80f, textureMeteor.getRegions());
 		
@@ -165,7 +168,6 @@ public class WorldRenderer implements Disposable{
 			mapTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 			mapTexture.setFilter(Texture.TextureFilter.MipMapNearestLinear, Texture.TextureFilter.MipMapNearestLinear);
 			
-			int alpha = (int) ((MIN_ALPHA - MAX_ALPHA) * (Math.min(10f, camera.zoom) - MIN_ZOOM) / (10f - MIN_ZOOM)) + MAX_ALPHA;
 			
 			float minX = -camera.viewportWidth * 660 / 2f;
 			float minY = -camera.viewportHeight * 660 / 2f;
@@ -186,7 +188,7 @@ public class WorldRenderer implements Disposable{
 		}
 		
 		private void drawStars (SpriteBatch batch) {
-			Texture starTexture = animationStar.getKeyFrame(elapsedTime, true).getTexture();
+			Texture starTexture =  animationStar.getKeyFrame(elapsedTime, true).getTexture();
 			starTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 			
 			int alpha = (int) ((MIN_ALPHA - MAX_ALPHA) * (Math.min(10f, camera.zoom) - MIN_ZOOM) / (10f - MIN_ZOOM)) + MAX_ALPHA;
@@ -271,15 +273,15 @@ public class WorldRenderer implements Disposable{
 				playerTexture.getHeight() / 2f,
 				playerTexture.getWidth(),
 				playerTexture.getHeight(),
-				1,
-				1,
-				playerBody.getAngle() * MathUtils.radiansToDegrees,
+				1, //scaleX
+				1, //scaleY
+				playerBody.getAngle() * MathUtils.radiansToDegrees, //rotation
 				0,
 				0,
 				playerTexture.getWidth(),
 				playerTexture.getHeight(),
-				false,
-				false
+				false, //whether to flip the sprite horizontally
+				false //whether to flip the sprite vertically
 			);
 		}
 		

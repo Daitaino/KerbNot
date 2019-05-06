@@ -51,13 +51,20 @@ public class WorldController {
 		if (controlState >= 3 && !Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			playable.runSAS(deltaTime);
 		}
+		if (controlState >= 4 && Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            if (playable.getCurrentThrust() == 0) {
+                renderer.playThrusterStarter();
+                renderer.setThrustStopperActive(true);
+            }
+            playable.increaseThrust(deltaTime);
+        }
 		if (controlState >= 4 && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-			if (playable.getCurrentThrust() == 0) {
-				renderer.stopThrusterGoinger();
-				renderer.playThrusterEnder();
-				renderer.setThrustStopperActive(false);
-			}
-			playable.decreaseThrust(deltaTime);
+			 if (playable.getCurrentThrust() == 0) {
+	                renderer.stopThrusterGoinger();
+	                renderer.playThrusterEnder();
+	                renderer.setThrustStopperActive(false);
+	            }
+	            playable.decreaseThrust(deltaTime);
 		}
 		if (controlState >= 5 && Gdx.input.isKeyPressed(Input.Keys.A)) {
 			screen.zoomIn();
@@ -75,3 +82,4 @@ public class WorldController {
 		
 	}
 }
+

@@ -8,18 +8,21 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import pl.pojava.kerbnot.model.Level;
 import pl.pojava.kerbnot.view.MainMenuScreen;
 
 public class KerbNot extends Game {
 	
 	private SpriteBatch batch;
 	private BitmapFont font;
+	private Level level;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		this.setScreen(new MainMenuScreen(this, batch, font));
+		level = new Level();
+		this.setScreen(new MainMenuScreen(this, batch, font, level));
 	}
 	
 	@Override

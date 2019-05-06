@@ -154,11 +154,12 @@ public class PopupView {
 	
 	private String[] splitText (String text, float width, float height) {
 		String topText = text;
+		
 		GlyphLayout bound = new GlyphLayout(font, text);
 		
 		while (bound.height > height) {
 			topText = topText.substring(0, topText.lastIndexOf(' '));
-			bound.setText(font, text);
+			bound.setText(font, topText);
 		}
 		String bottomText = text.substring(topText.length());
 		
