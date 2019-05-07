@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import pl.pojava.kerbnot.model.Level;
 import pl.pojava.kerbnot.model.LevelManager;
 import pl.pojava.kerbnot.KerbNot;
 import pl.pojava.kerbnot.loaders.AssetLoader;
@@ -25,6 +26,7 @@ import pl.pojava.kerbnot.loaders.AssetLoader;
 
 public class MainMenuScreen implements Screen {
 	
+	private Level level;
 	private Stage stage;
 	private KerbNot game;
 	private SpriteBatch batch;
@@ -36,10 +38,11 @@ public class MainMenuScreen implements Screen {
 	private float elapsedTime;
 	private MainMenuScreen thisScreen = this;
 	
-	public MainMenuScreen(KerbNot game, SpriteBatch batch, BitmapFont font) {
+	public MainMenuScreen(KerbNot game, SpriteBatch batch, BitmapFont font, Level level) {
 		this.game = game;
 		this.batch = batch;
 		this.font = font;
+		this.level = level;
 	}
 
 	@Override

@@ -12,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 
+import pl.pojava.kerbnot.model.Level.ObjectType;
+import pl.pojava.kerbnot.model.Level.State;
 import pl.pojava.kerbnot.util.Constants;
 import pl.pojava.kerbnot.view.GameScreen;
 
@@ -309,3 +311,4 @@ public class Level {
 		return objectiveWindow;
 	}
 }
+
