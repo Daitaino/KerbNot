@@ -3,9 +3,9 @@ package pl.pojava.kerbnot;
 import com.badlogic.gdx.backends.iosmoe.IOSApplication;
 import com.badlogic.gdx.backends.iosmoe.IOSApplicationConfiguration;
 import org.moe.natj.general.Pointer;
-import pl.pojava.kerbnot.KerbNot;
 
 import apple.uikit.c.UIKit;
+import pl.edu.pw.fizyka.pojava.kerbnot.KerbNot;
 
 public class IOSMoeLauncher extends IOSApplication.Delegate {
 

@@ -2,7 +2,8 @@ package pl.pojava.kerbnot.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import pl.pojava.kerbnot.KerbNot;
+
+import pl.edu.pw.fizyka.pojava.kerbnot.KerbNot;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
