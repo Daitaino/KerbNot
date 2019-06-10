@@ -26,11 +26,13 @@ public class Playable extends SolidObject {
 	private float deltaThrust;
 	
 	private float fuelLeft;
-	private float startingFuel;
+	public static float startingFuel;
 	private float width;
 	private float height;
 	
 	private float maxThrust;
+	
+	public static float dryMass;
 	
 	private boolean SASEnabled;
 	
@@ -52,6 +54,7 @@ public class Playable extends SolidObject {
 		this.SASEnabled = false;
 		this.maximizeThrust = false;
 		this.startingFuel = fuel;
+		this.dryMass = dryMass;
 		
 		this.body = createBody(x, y, (dryMass + fuel), world);
 		
@@ -234,11 +237,20 @@ public class Playable extends SolidObject {
 		SASEnabled = set;
 	}
 	
-	public float getStartingFuel() {
+	public static float getStartingFuel() {
 		return startingFuel;
+	}
+	
+	public void setStartingFuel (float startingFuel) {
+		this.startingFuel = startingFuel;
 	}
 	;
 	public float getMaxVelocity() {
 		return MAX_VELOCITY;
 	}
+	
+	public float getDryMass() {
+		return dryMass;
+	}
 }
+

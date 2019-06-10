@@ -1,5 +1,7 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.view;
 
+//class for changing options
+
 import java.awt.Checkbox;
 
 import com.badlogic.gdx.Gdx;

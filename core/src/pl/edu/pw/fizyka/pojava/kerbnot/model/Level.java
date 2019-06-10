@@ -14,8 +14,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 
-import pl.edu.pw.fizyka.pojava.kerbnot.model.Level.ObjectType;
-import pl.edu.pw.fizyka.pojava.kerbnot.model.Level.State;
 import pl.edu.pw.fizyka.pojava.kerbnot.util.Constants;
 import pl.edu.pw.fizyka.pojava.kerbnot.view.GameScreen;
 

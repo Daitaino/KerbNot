@@ -1,6 +1,5 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.model;
 
-
 /**
  * 
  * @author Filip

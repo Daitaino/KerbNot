@@ -2,6 +2,7 @@ package pl.edu.pw.fizyka.pojava.kerbnot.view;
 
 /**
  * author Ma³gorzata
+ * class used to render the world (ship, background etc.)
  */
 
 import static pl.edu.pw.fizyka.pojava.kerbnot.util.Constants.*;
@@ -124,6 +125,20 @@ public class WorldRenderer implements Disposable{
 		AssetManager.DEATH_SIGN.play(GamePreferences.getInstance().getMasterVolume());
 			
 		level.setState(Level.State.HEALTH_LOST);
+		if (level.getState() == Level.State.GAME_OVER) {
+            // TODO: DO GAME OVER ANIMATION
+			Timer.schedule(new Timer.Task() {
+				@Override
+				public void run() {
+					
+				}
+			}, 3.0f);
+			AssetManager.DEATH_SIGN.play(GamePreferences.getInstance().getMasterVolume());
+			
+        } else {
+            // TODO: DO HEALTH OVER ANIMATION
+        	level.resetLevel();
+        }
 			
 		registerCollision();
 	}
@@ -258,29 +273,51 @@ public class WorldRenderer implements Disposable{
 	}
 		
 	private void drawPlayers(SpriteBatch batch) {
-		Texture playerTexture = AssetManager.PLAYER_TEXTURE;
+		Texture playerTexture1 = AssetManager.PLAYER_TEXTURE;
+		Texture playerTexture2 = AssetManager.PLAYER_TEXTURE_2;
 			
-		playerTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		playerTexture1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		playerTexture2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		Body playerBody = level.getPlayable().getBody();
-			
-		batch.draw(
-			playerTexture,
-			playerBody.getPosition().x * toPixel - playerTexture.getWidth() / 2f,
-			playerBody.getPosition().y * toPixel - playerTexture.getHeight() / 2f,
-			playerTexture.getWidth() / 2f,
-			playerTexture.getHeight() / 2f,
-			playerTexture.getWidth(),
-			playerTexture.getHeight(),
-			1, //scaleX
-			1, //scaleY
-			playerBody.getAngle() * MathUtils.radiansToDegrees, //rotation
-			0,
-			0,
-			playerTexture.getWidth(),
-			playerTexture.getHeight(),
-			false, //whether to flip the sprite horizontally
-			false //whether to flip the sprite vertically
-		);
+		if (GameSetupScreen.ship1.isChecked())	{
+			batch.draw(
+				playerTexture1,
+				playerBody.getPosition().x * toPixel - playerTexture1.getWidth() / 2f,
+				playerBody.getPosition().y * toPixel - playerTexture1.getHeight() / 2f,
+				playerTexture1.getWidth() / 2f,
+				playerTexture1.getHeight() / 2f,
+				playerTexture1.getWidth(),
+				playerTexture1.getHeight(),
+				1, //scaleX
+				1, //scaleY
+				playerBody.getAngle() * MathUtils.radiansToDegrees, //rotation
+				0,
+				0,
+				playerTexture1.getWidth(),
+				playerTexture1.getHeight(),
+				false, //whether to flip the sprite horizontally
+				false //whether to flip the sprite vertically
+			);
+		} else if (GameSetupScreen.ship2.isChecked()) {
+			batch.draw(
+					playerTexture2,
+					playerBody.getPosition().x * toPixel - playerTexture2.getWidth() / 4f,
+					playerBody.getPosition().y * toPixel - playerTexture2.getHeight() / 4f,
+					playerTexture2.getWidth() / 4f,
+					playerTexture2.getHeight() / 4f,
+					playerTexture2.getWidth() / 2f,
+					playerTexture2.getHeight() / 2f,
+					1, //scaleX
+					1, //scaleY
+					playerBody.getAngle() * MathUtils.radiansToDegrees, //rotation
+					0,
+					0,
+					playerTexture2.getWidth(),
+					playerTexture2.getHeight(),
+					false, //whether to flip the sprite horizontally
+					false //whether to flip the sprite vertically
+				);
+		}
 	}
 		
 	private void drawTrajectory (SpriteBatch batch) {

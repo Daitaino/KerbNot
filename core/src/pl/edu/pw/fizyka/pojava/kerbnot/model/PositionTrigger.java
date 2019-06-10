@@ -1,5 +1,9 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.model;
 
+/** 
+ * @author Filip
+ */
+
 import com.badlogic.gdx.math.Vector2;
 
 public class PositionTrigger extends Trigger {
@@ -74,3 +78,4 @@ public class PositionTrigger extends Trigger {
 		return radius;
 	}
 }
+

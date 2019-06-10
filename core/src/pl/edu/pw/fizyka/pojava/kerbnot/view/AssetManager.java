@@ -2,6 +2,7 @@ package pl.edu.pw.fizyka.pojava.kerbnot.view;
 
 /**
  * author Ma³gorzata
+ * class used to save all assets
  */
 
 import com.badlogic.gdx.Gdx;

@@ -1,5 +1,9 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.model;
 
+/**
+ * @author Filip
+ */
+
 import com.badlogic.gdx.math.Vector2;
 
 public class Map {
@@ -28,3 +32,4 @@ public class Map {
 		return new Vector2(width / 2f, height / 2f);
 	}
 }
+

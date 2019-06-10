@@ -1,5 +1,11 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.model;
 
+/**
+ * 
+ * @author Filip
+ *
+ */
+
 public class ObjectiveWindow {
 
 	private String text = "";
@@ -34,3 +40,4 @@ public class ObjectiveWindow {
 		this.title = title;
 	}
 }
+

@@ -264,26 +264,52 @@ public class GameScreen implements Screen {
 				camera.position.y + (camera.viewportHeight / 2f + 320f) * camera.zoom - timerFont.getLineHeight() * 12f
 		);
 		
-		Texture rocketTexture = AssetManager.PLAYER_TEXTURE;
+		
+		Texture rocketTexture1 = AssetManager.PLAYER_TEXTURE;
+		Texture rocketTexture2 = AssetManager.PLAYER_TEXTURE_2;
+		//= AssetManager.PLAYER_TEXTURE;
+		
 		for ( int i = 0; i < level.getHealth(); i++) {
-			batch.draw(
-					rocketTexture,
-					camera.position.x -(-120 + (camera.viewportWidth/2f) - (75 * i)) * camera.zoom,
-					camera.position.y - (camera.viewportHeight/2f - 635) * camera.zoom,
-					0,
-					0,
-					rocketTexture.getWidth() / 1.7f,
-					rocketTexture.getHeight() / 1.7f,
-					camera.zoom,
-					camera.zoom,
-					0,
-					0,
-					0,
-					rocketTexture.getWidth(),
-					rocketTexture.getHeight(),
-					false,
-					false
-			);
+			if(GameSetupScreen.ship1.isChecked()) {
+				batch.draw(
+						rocketTexture1,
+						camera.position.x -(-120 + (camera.viewportWidth/2f) - (75 * i)) * camera.zoom,
+						camera.position.y - (camera.viewportHeight/2f - 635) * camera.zoom,
+						0,
+						0,
+						rocketTexture1.getWidth() / 1.7f,
+						rocketTexture1.getHeight() / 1.7f,
+						camera.zoom,
+						camera.zoom,
+						0,
+						0,
+						0,
+						rocketTexture1.getWidth(),
+						rocketTexture1.getHeight(),
+						false,
+						false
+				);
+			}
+			else if(GameSetupScreen.ship2.isChecked()) {
+				batch.draw(
+						rocketTexture2,
+						camera.position.x -(-120 + (camera.viewportWidth/2f) - (75 * i)) * camera.zoom,
+						camera.position.y - (camera.viewportHeight/2f - 635) * camera.zoom,
+						0,
+						0,
+						rocketTexture2.getWidth() / 3f,
+						rocketTexture2.getHeight() / 3f,
+						camera.zoom,
+						camera.zoom,
+						0,
+						0,
+						0,
+						rocketTexture2.getWidth(),
+						rocketTexture2.getHeight(),
+						false,
+						false
+						);
+			}
 		}
 		
 		font.draw(
@@ -384,7 +410,7 @@ public class GameScreen implements Screen {
 			                game.setScreen(new MainMenuScreen(game, batch, font));
 						} else {
 							boolean isGameOver = true;
-							endLevelText = "You made it back safely! That was close!";
+							endLevelText = "You didn't make it....";
 				            batch.draw(
 				                    AssetManager.GAME_OVER,
 				                    camera.position.x - camera.viewportWidth / 2f * camera.zoom,

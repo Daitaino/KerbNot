@@ -1,5 +1,10 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.model;
 
+/**
+ * @author Filip
+ *
+ */
+
 public class Popup {
 	
 	private String text;
@@ -54,3 +59,4 @@ public class Popup {
 		return lastText;
 	}
 }
+

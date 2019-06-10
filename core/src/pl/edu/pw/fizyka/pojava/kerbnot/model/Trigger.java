@@ -1,5 +1,9 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.model;
 
+/** 
+ * @author Filip
+ */
+
 public abstract class Trigger {
 	
 	protected boolean runOnce;

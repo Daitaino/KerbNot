@@ -1,5 +1,9 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.model;
 
+/**
+ * @author Filip
+ */
+
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -64,3 +68,4 @@ public class Planet extends CelestialObject {
 		this.primary = primary;
 	}
 }
+

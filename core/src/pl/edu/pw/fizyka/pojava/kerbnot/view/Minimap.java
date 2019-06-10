@@ -1,11 +1,11 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.view;
 
-import static pl.edu.pw.fizyka.pojava.kerbnot.util.Constants.*;
-
 /**
- * @author: Ma³gorzata
- * Class used to create a mini map at a screen corner
+ * author Ma³gorzata
+ * class used to create a minimap
  */
+
+import static pl.edu.pw.fizyka.pojava.kerbnot.util.Constants.*;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -77,8 +77,8 @@ public class Minimap {
     		drawAt(batch, AssetManager.GHOST, point.x, point.y, GHOST_SCALE);
     	}
     	
-    	if (DEBUG && level.getTimePassedReal() < 1)
-            debugDraw(batch);
+    	//if (DEBUG && level.getTimePassedReal() < 1)
+           // debugDraw(batch);
     }
     
     private void drawAt (SpriteBatch batch,  Texture texture, float x, float y, float scale) {
