@@ -1,6 +1,12 @@
 package pl.edu.pw.fizyka.pojava.kerbnot;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -22,7 +28,7 @@ public class KerbNot extends Game {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		level = new Level();
-		this.setScreen(new MainMenuScreen(this, batch, font, level));
+		this.setScreen(new MainMenuScreen(this, batch, font));
 	}
 	
 	@Override

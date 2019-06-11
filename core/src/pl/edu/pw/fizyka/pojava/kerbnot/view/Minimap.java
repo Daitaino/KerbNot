@@ -2,7 +2,7 @@ package pl.edu.pw.fizyka.pojava.kerbnot.view;
 
 /**
  * author Ma³gorzata
- * class used to create a minimap
+ * class for creating minimap
  */
 
 import static pl.edu.pw.fizyka.pojava.kerbnot.util.Constants.*;
@@ -62,6 +62,7 @@ public class Minimap {
     public void draw (SpriteBatch batch) {
     	Vector2 playablePos = level.getPlayable().getBody().getPosition();
     	
+    	//drawing planets on minimap
     	drawAt(batch, AssetManager.MINIMAP_PLAYER, playablePos.x, playablePos.y, PLAYABLE_SCALE);
     	
     	for (Planet planet: level.getPlanets()) {
@@ -72,13 +73,11 @@ public class Minimap {
     		drawAt(batch, AssetManager.MINIMAP_PLANET, planetPos.x, planetPos.y, planetScale);
     	}
     	
+    	//drawing trajectory on minimap
     	for (int i = 0; i < trajectorySimulator.getEstimationPath().size; i += 10) {
     		Vector2 point = trajectorySimulator.getEstimationPath().get(i);
     		drawAt(batch, AssetManager.GHOST, point.x, point.y, GHOST_SCALE);
     	}
-    	
-    	//if (DEBUG && level.getTimePassedReal() < 1)
-           // debugDraw(batch);
     }
     
     private void drawAt (SpriteBatch batch,  Texture texture, float x, float y, float scale) {

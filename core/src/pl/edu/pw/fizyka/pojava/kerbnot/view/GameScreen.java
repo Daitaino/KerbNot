@@ -4,6 +4,8 @@ package pl.edu.pw.fizyka.pojava.kerbnot.view;
  * author Ma³gorzata
  */
 
+//class with game screen: it draws things like trajectory, thrust and velocity rate, pause screen etc.
+
 import static pl.edu.pw.fizyka.pojava.kerbnot.util.Constants.*;
 
 import com.badlogic.gdx.Gdx;
@@ -125,6 +127,7 @@ public class GameScreen implements Screen {
 			this.stopRocketTrail();
 		}
 		
+		//drawing particles
 		particleEffect.draw(batch);
 		particleEffect.update(delta);
 		particleEffect.setPosition(level.getPlayable().getBottomPosition().x * toPixel, level.getPlayable().getBottomPosition().y * toPixel);
@@ -148,8 +151,10 @@ public class GameScreen implements Screen {
 
 	private void draw() {
 		// TODO Auto-generated method stub
+		
+		//drawing data
 		if (DEBUG) {
-			drawDebugString(GamePreferences.getInstance().isEnglishActive() ? "Mass: " + cameraTarget.getBody().getMassData() : "Masa: " + cameraTarget.getBody().getMassData(), 25);
+			
 			drawDebugString(GamePreferences.getInstance().isEnglishActive() ? "Fuel left: " + cameraTarget.getFuelLeft() : "Pozostale paliwo: "  + cameraTarget.getFuelLeft(), 26);
 			drawDebugString(GamePreferences.getInstance().isEnglishActive() ? "Thrust: " + cameraTarget.getCurrentThrust() : "Sila ciagu: " + cameraTarget.getCurrentThrust(), 27);
 			drawDebugString("Y: " + String.format("%.2f", cameraTarget.getBody().getPosition().y), 28);
@@ -182,6 +187,7 @@ public class GameScreen implements Screen {
 		Texture overlayFiller = AssetManager.PROGFILLER;
 		overlayFiller.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 		
+		//drawing velocity rate
 		float velocityRate;
 		if (cameraTarget.getBody().getLinearVelocity().len() * 10 > 1165) {
 			velocityRate = 394;
@@ -208,6 +214,7 @@ public class GameScreen implements Screen {
 				false
 		);
 		
+		//drawing fuel rate
 		float fuelRate;
 		fuelRate = (level.getPlayable().getFuelLeft() * 394) / level.getPlayable().getStartingFuel();
 		
@@ -230,6 +237,8 @@ public class GameScreen implements Screen {
 				false //whether to flip the sprite vertically
 		);
 		
+		
+		//drawing thrust rate
 		float thrustRate;
         thrustRate = (level.getPlayable().getCurrentThrust() * 69) / level.getPlayable().getMaxThrust(); //69 When bar is full
         batch.draw(
@@ -256,6 +265,7 @@ public class GameScreen implements Screen {
 			timeText = (int) elapsedTime / 60 + ":" + (int) elapsedTime % 60;
 		}
 		
+		//drawing time
 		timerFont.getData().setScale(camera.zoom);
 		timerFont.draw(
 				batch, 
@@ -265,9 +275,11 @@ public class GameScreen implements Screen {
 		);
 		
 		
+		
+		//
 		Texture rocketTexture1 = AssetManager.PLAYER_TEXTURE;
 		Texture rocketTexture2 = AssetManager.PLAYER_TEXTURE_2;
-		//= AssetManager.PLAYER_TEXTURE;
+		
 		
 		for ( int i = 0; i < level.getHealth(); i++) {
 			if(GameSetupScreen.ship1.isChecked()) {
@@ -319,6 +331,8 @@ public class GameScreen implements Screen {
 				camera.position.y + (camera.viewportHeight / 2f - 100) * camera.zoom
 		);
 		
+		
+		//drawing warning
 		if (renderer.getTrajectorySimulator().isCollided() && (int) (elapsedTime * 2) % 2 == 0) {
 			batch.draw(
 					AssetManager.WARNING,
@@ -340,6 +354,7 @@ public class GameScreen implements Screen {
 			);
 		}
 		
+		//drawing waypoint
 		if (level.getWaypoint() != null) {
 			TextureRegion way = waypointAnimation.getKeyFrame(elapsedTime, true);
 			batch.draw(
@@ -356,38 +371,40 @@ public class GameScreen implements Screen {
 			);
 		}
 		
+		//drawing minimap
 		if (minimap.isEnabled()) {
 			minimap.draw(batch);
 		}
 		
-		 if (level.getPlayable().getSASEnabled())
-	            sasTexture = AssetManager.SAS_ON;
-	        else
-	            sasTexture = AssetManager.SAS_OFF;
+		//drawing SAS
+		if (level.getPlayable().getSASEnabled())
+	           sasTexture = AssetManager.SAS_ON;
+	       else
+	           sasTexture = AssetManager.SAS_OFF;
 
-	        batch.draw(
-	                sasTexture,
-	                camera.position.x - (camera.viewportWidth / 2f - 0) * camera.zoom,
-	                camera.position.y - (camera.viewportHeight / 2f - 400) * camera.zoom,
-	                0,
-	                0,
-	                sasTexture.getWidth(),
-	                sasTexture.getHeight(),
-	                camera.zoom,
-	                camera.zoom,
-	                0,
-	                0,
-	                0,
-	                sasTexture.getWidth(),
-	                sasTexture.getHeight(),
-	                false,
-	                false
-	        );
+	       batch.draw(
+                sasTexture,
+                camera.position.x - (camera.viewportWidth / 2f - 0) * camera.zoom,
+                camera.position.y - (camera.viewportHeight / 2f - 400) * camera.zoom,
+                0,
+                0,
+                sasTexture.getWidth(),
+                sasTexture.getHeight(),
+                camera.zoom,
+                camera.zoom,
+                0,
+                0,
+                0,
+                sasTexture.getWidth(),
+                sasTexture.getHeight(),
+                false,
+                false
+        );
 
-
-	        popupView.draw(batch);
+	    //drawing popup window
+        popupView.draw(batch);
 		
-		
+		//what happens when we lose or win
 		if(level.getState() == Level.State.FINISHED) {
 			
 			 Timer.schedule(new Timer.Task() {
@@ -396,28 +413,18 @@ public class GameScreen implements Screen {
 						if (level.getHealth() != 0) {
 							boolean isGameOver = true;
 							endLevelText = "You made it back safely! That was close!";
-				            batch.draw(
-				                    AssetManager.LEVEL_FINISHED,
-				                    camera.position.x - camera.viewportWidth / 2f * camera.zoom,
-				                    camera.position.y - camera.viewportHeight / 2f * camera.zoom,
-				                    AssetManager.LEVEL_FINISHED.getWidth() * camera.zoom,
-				                    AssetManager.LEVEL_FINISHED.getHeight() * camera.zoom
-				            );
+				            
 							renderer.stopThrusterGoinger();
 							renderer.stopWarningSound();
 			                renderer.stopBackgroundMusic();
 			                popupView.stopPopupShutter();
+			                
+
 			                game.setScreen(new MainMenuScreen(game, batch, font));
 						} else {
 							boolean isGameOver = true;
 							endLevelText = "You didn't make it....";
-				            batch.draw(
-				                    AssetManager.GAME_OVER,
-				                    camera.position.x - camera.viewportWidth / 2f * camera.zoom,
-				                    camera.position.y - camera.viewportHeight / 2f * camera.zoom,
-				                    AssetManager.GAME_OVER.getWidth() * camera.zoom,
-				                    AssetManager.GAME_OVER.getHeight() * camera.zoom
-				            );
+				            
 							renderer.stopBackgroundMusic();
 			                renderer.stopThrusterGoinger();
 			                renderer.stopWarningSound();
@@ -532,6 +539,7 @@ public class GameScreen implements Screen {
 		font.draw(batch, s, camera.position.x - camera.viewportWidth/2f * camera.zoom, camera.position.y - camera.viewportHeight/2f * camera.zoom + font.getLineHeight() * row);
 	}
 	
+	//drawing pause screen
 	public void showPauseScreen() {
 		Dialog dialog = new Dialog("Paused", skin, "dialog") {
 			public void result(Object obj) {

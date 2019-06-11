@@ -1,6 +1,6 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.view;
 
-//class used to show credits
+//class with screen that show authors
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

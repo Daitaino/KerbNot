@@ -1,5 +1,6 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.view;
 
+//A standard main menu screen
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -26,7 +27,7 @@ import pl.edu.pw.fizyka.pojava.kerbnot.model.Level;
 import pl.edu.pw.fizyka.pojava.kerbnot.model.LevelManager;
 import pl.edu.pw.fizyka.pojava.kerbnot.util.GamePreferences;
 
-//A standard main menu screen
+
 
 public class MainMenuScreen implements Screen {
 	
@@ -128,9 +129,7 @@ public class MainMenuScreen implements Screen {
 		
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		
-		
 		batch.begin();
-		//AssetLoader.BACKGROUND_SPRITE.draw(batch);
 		sprite.draw(batch);
 		batch.end();
 		
@@ -165,10 +164,8 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		
 		backgroundTexture.dispose();
 		stage.dispose();
-
 	}
 
 }

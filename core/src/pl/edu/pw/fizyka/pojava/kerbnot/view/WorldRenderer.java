@@ -1,8 +1,8 @@
-package pl.edu.pw.fizyka.pojava.kerbnot.view;
+ package pl.edu.pw.fizyka.pojava.kerbnot.view;
 
 /**
  * author Ma³gorzata
- * class used to render the world (ship, background etc.)
+ * class that renders the world: ship, planet, background etc.
  */
 
 import static pl.edu.pw.fizyka.pojava.kerbnot.util.Constants.*;
@@ -80,6 +80,7 @@ public class WorldRenderer implements Disposable{
 		registerCollision();
 	}
 	
+	
 	private void registerCollision() {
 		level.getWorld().setContactListener(new ContactListener() {
 			@Override
@@ -109,6 +110,7 @@ public class WorldRenderer implements Disposable{
 		});
 	}
 	
+	//what happens when there is collision
 	private void onCollision() {
 		stopWarningSound();
 		stopBackgroundMusic();
@@ -126,7 +128,7 @@ public class WorldRenderer implements Disposable{
 			
 		level.setState(Level.State.HEALTH_LOST);
 		if (level.getState() == Level.State.GAME_OVER) {
-            // TODO: DO GAME OVER ANIMATION
+            
 			Timer.schedule(new Timer.Task() {
 				@Override
 				public void run() {
@@ -136,7 +138,7 @@ public class WorldRenderer implements Disposable{
 			AssetManager.DEATH_SIGN.play(GamePreferences.getInstance().getMasterVolume());
 			
         } else {
-            // TODO: DO HEALTH OVER ANIMATION
+      
         	level.resetLevel();
         }
 			
@@ -174,7 +176,8 @@ public class WorldRenderer implements Disposable{
 			stopWarningSound();
 		}
 	}
-		
+	
+	//drawing map
 	private void drawMap(SpriteBatch batch) {
 		Texture mapTexture = AssetManager.MAP_TEXTURE;
 		mapTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
@@ -198,7 +201,8 @@ public class WorldRenderer implements Disposable{
 			 
 		batch.setColor(1, 1, 1, 1);
 	}
-		
+	
+	//drawing stars
 	private void drawStars (SpriteBatch batch) {
 		Texture starTexture =  animationStar.getKeyFrame(elapsedTime, true).getTexture();
 		starTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -222,7 +226,7 @@ public class WorldRenderer implements Disposable{
 	}
 		
 		
-		
+	//drawing planets
 	private void drawPlanets(SpriteBatch batch) {
 		Texture planetTexture = AssetManager.PLANET1;
 			
@@ -271,7 +275,8 @@ public class WorldRenderer implements Disposable{
 			);
 		}
 	}
-		
+	
+	//drawing player
 	private void drawPlayers(SpriteBatch batch) {
 		Texture playerTexture1 = AssetManager.PLAYER_TEXTURE;
 		Texture playerTexture2 = AssetManager.PLAYER_TEXTURE_2;
@@ -319,7 +324,8 @@ public class WorldRenderer implements Disposable{
 				);
 		}
 	}
-		
+	
+	//drawing trajectory
 	private void drawTrajectory (SpriteBatch batch) {
 		if (TrajectorySimulator.enabled) {
 			trajectorySimulator.update(Gdx.graphics.getDeltaTime());
@@ -335,7 +341,8 @@ public class WorldRenderer implements Disposable{
 			}
 		}
 	}
-		
+	
+	//drawing warning sign
 	private void drawWarningSign(SpriteBatch batch) {
 		if(trajectorySimulator.isCollided()) {
 			float randMultiplier = MathUtils.random(0.7f, 1.0f);
@@ -351,7 +358,8 @@ public class WorldRenderer implements Disposable{
 	        );
 		}
 	}
-		
+	
+	//drawing map border
 	private void drawMapBorder(SpriteBatch batch) {
 		float radius = level.getMap().getRadius();
 		float scale = 10;

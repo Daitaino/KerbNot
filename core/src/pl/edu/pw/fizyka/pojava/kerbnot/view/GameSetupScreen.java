@@ -1,6 +1,10 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.view;
 
-//class used to choose some game options before starting the game
+/*
+ * @author Gosia
+ */
+
+//class that shows screen in which user chooses opitons of the game, like mass and fuel quantity or ship appearance
 
 import static pl.edu.pw.fizyka.pojava.kerbnot.util.Constants.DEBUG;
 
@@ -78,16 +82,16 @@ public class GameSetupScreen implements Screen {
 		Table table = new Table();
 		table.setFillParent(true);
 		
-		//Textfields TODO: More settings
+		//Textfields for mass and fuel
 		final TextField fuel = new TextField("50", AssetLoader.SKIN);
 		final TextField mass = new TextField("50", AssetLoader.SKIN);
 		
 		imageShip1 = new Image(AssetManager.PLAYER_TEXTURE);
 		imageShip2 = new Image (AssetManager.PLAYER_TEXTURE_2);
-		
+				
+		//checkboxes for choosing ship appearance
 		ship1 = new CheckBox(GamePreferences.getInstance().isEnglishActive() ? "Ship 1" : "Statek 1", AssetLoader.SKIN);
 		ship1.setChecked(true);
-		
 		ship2 = new CheckBox(GamePreferences.getInstance().isEnglishActive() ? "Ship 2" : "Statek 2", AssetLoader.SKIN);
 		
 		ButtonGroup shipGroup = new ButtonGroup(ship1, ship2);
@@ -130,11 +134,11 @@ public class GameSetupScreen implements Screen {
 				startingFuel = Float.parseFloat(startingFuelString);
 				shipMassString = mass.getText();
 				shipMass = Float.parseFloat(shipMassString);
+				//game doesn't start when mass or fuel <= 0
 				if (startingFuel <= 0 || shipMass <= 0 ) {
 					Dialog dialog = new Dialog("", skin, "dialog") {
 						public void result(Object obj) {
-							switch ((Integer) obj) {
-								
+							switch ((Integer) obj) {			
 			                    default:
 			                    	break;
 							}

@@ -1,6 +1,6 @@
 package pl.edu.pw.fizyka.pojava.kerbnot.view;
 
-//class for changing options
+//class that show screen with options
 
 import java.awt.Checkbox;
 
@@ -62,14 +62,12 @@ public class OptionsScreen implements Screen {
 		final CheckBox musicCheck = new CheckBox(GamePreferences.getInstance().isEnglishActive() ? "Music" : "Muzyka", AssetLoader.SKIN);
 		musicCheck.setChecked(GamePreferences.getInstance().isMusicEnabled());
 		
-		englishStatus = GamePreferences.getInstance().isEnglishActive();
-		polishStatus = GamePreferences.getInstance().isPolishActive();
-		
+		//checkboxes for choosing language
 		final CheckBox englishLanguage = new CheckBox(GamePreferences.getInstance().isEnglishActive() ? "English" : "Angielski", AssetLoader.SKIN);
-		englishLanguage.setChecked(englishStatus);
+		englishLanguage.setChecked(GamePreferences.getInstance().isEnglishActive());
 		
 		final CheckBox polishLanguage = new CheckBox(GamePreferences.getInstance().isEnglishActive() ? "Polish" : "Polski", AssetLoader.SKIN);
-		polishLanguage.setChecked(!englishStatus);
+		polishLanguage.setChecked(!GamePreferences.getInstance().isEnglishActive());
 		
 		ButtonGroup languageGroup = new ButtonGroup(englishLanguage, polishLanguage);
 		languageGroup.setMaxCheckCount(1);
@@ -122,12 +120,8 @@ public class OptionsScreen implements Screen {
 				// TODO Auto-generated method stub
 				if(!GamePreferences.getInstance().isEnglishActive()) {
                     GamePreferences.getInstance().setEnglishLanguage(true);
-                   // GamePreferences.getInstance().setPolishLanguage(false);
-                }
-                else
-                {
+                } else {
                 	GamePreferences.getInstance().setEnglishLanguage(false);
-                   // GamePreferences.getInstance().setPolishLanguage(true);
                 }
 				
 				englishLanguage.setText(GamePreferences.getInstance().isEnglishActive() ? "English" : "Angielski");
@@ -147,14 +141,9 @@ public class OptionsScreen implements Screen {
 			public void changed(ChangeEvent event, Actor actor) {
 				// TODO Auto-generated method stub
 				if(!GamePreferences.getInstance().isPolishActive()) {
-					//GamePreferences.getInstance().setPolishLanguage(true);
                     GamePreferences.getInstance().setEnglishLanguage(false);    
-                }
-                else
-                {
-                	//GamePreferences.getInstance().setPolishLanguage(false);
+                } else {
                 	GamePreferences.getInstance().setEnglishLanguage(true);
-                   
                 }
 				
 				englishLanguage.setText(GamePreferences.getInstance().isEnglishActive() ? "English" : "Angielski");

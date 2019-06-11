@@ -15,6 +15,7 @@ public class AssetManager {
 	public static final Texture BACKGROUND_TEXTURE = new Texture(Gdx.files.internal("background/menuBackground.jpg"));
 	public static final Texture GAME_OVER = new Texture(Gdx.files.internal("PNG/gameOver.png"));
  	public static final Texture PLAYER_TEXTURE = new Texture(Gdx.files.internal("PNG/rocket.png"));
+ 	public static final Texture PLAYER_TEXTURE_2 = new Texture(Gdx.files.internal("PNG/player2.png"));
     public static final Texture MAP_TEXTURE = new Texture(Gdx.files.internal("Backgrounds/bq.png"), true);
     public static final Texture SPLASH = new Texture(Gdx.files.internal("PNG/RocketFoolsSplash.png"));
     public static final Texture GHOST = new Texture(Gdx.files.internal("PNG/Yellow_icon.png"), true);
